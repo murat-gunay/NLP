@@ -1,5 +1,5 @@
 
-# Text Classification using SparkNLP
+# (Draft) Text Classification using SparkNLP
 ***
 ### This notebook includes text classification model using;
 - `LogisticRegression`,
