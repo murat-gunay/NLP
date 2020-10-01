@@ -5,7 +5,7 @@
 - `LogisticRegression`,
 - `NaiveBayes`
 
-### The Turkish corpus consists of 4900 rows (documents) and composed of 7 categories:
+### The Turkish corpus (``turkish_categorical_corpus.csv``) consists of 4900 rows (documents) and composed of 7 categories:
 - teknoloji
 - kultur
 - ekonomi
