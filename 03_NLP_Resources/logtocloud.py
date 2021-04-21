@@ -1,5 +1,8 @@
 def initAzure():
     import os
+    import time
+    
+    time = str(int(time.time()))
     
     os.makedirs('outputs', exist_ok=True)
     files = os.listdir("outputs")
@@ -19,6 +22,7 @@ def initAzure():
     else:
         
         name = input("Enter the name of your Experiment (model-training) : ")
+        name = name+"-"+time
         with open("outputs/_experiment-name_.txt", "w", encoding = "utf-8") as file:
             file.write(name)
 
@@ -51,13 +55,23 @@ def toAzure():
     from azureml.core import Workspace
     from azureml.core import Experiment
     import shutil, os, glob
+    from azureml.core.authentication import InteractiveLoginAuthentication
     
     with open("outputs/_experiment-name_.txt", "r", encoding = "utf-8") as file:
         experiment_name = file.readline()
-    
-    ws = Workspace.get(name="jsl-workspace", 
-                   subscription_id="e82292df-ef3b-4089-8f75-fcab8693c7ad",
-                   resource_group='jsl-resources')
+       
+    try :
+        ws = Workspace.get(name="sparknlp", 
+                  subscription_id="bc5674c1-2f09-4eff-8497-b97f5466158f",
+                  resource_group="datascientists")
+        
+    except :
+        
+        interactive_auth = InteractiveLoginAuthentication(tenant_id="55574e46-daf5-45bd-8659-de00e36fb97c", force=True)
+        ws = Workspace.get(name="sparknlp", 
+                  subscription_id="bc5674c1-2f09-4eff-8497-b97f5466158f",
+                  resource_group="datascientists",
+                  auth=interactive_auth)
     
     experiment = Experiment(workspace=ws, name=experiment_name)
     
